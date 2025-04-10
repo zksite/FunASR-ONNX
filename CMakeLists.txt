@@ -61,33 +61,27 @@ if(GPU)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -D_GLIBCXX_USE_CXX11_ABI=0")
 endif()
 
-if(ENABLE_GLOG)
-    include_directories(${PROJECT_SOURCE_DIR}/third_party/glog/src)
-    set(BUILD_TESTING OFF)
-    add_subdirectory(third_party/glog)
-    include_directories(${glog_BINARY_DIR})
-    
-endif()
+#if(ENABLE_GLOG)
+#    include_directories(${PROJECT_SOURCE_DIR}/third_party/glog/src)
+#    set(BUILD_TESTING OFF)
+#    add_subdirectory(third_party/glog)
+#    include_directories(${glog_BINARY_DIR})
+#
+#endif()
 
 if(ENABLE_FST)
     # fst depend on glog and gflags
-
-    if(NOT glog)
-        include_directories(${PROJECT_SOURCE_DIR}/third_party/gflags)
-        add_subdirectory(third_party/gflags)
-        include_directories(${gflags_BINARY_DIR}/include)
-    endif ()
+    include_directories(${PROJECT_SOURCE_DIR}/third_party/gflags)
+    add_subdirectory(third_party/gflags)
+    include_directories(${gflags_BINARY_DIR}/include)
     
     # the following openfst if cloned from https://github.com/kkm000/openfst.git
     # with some patch to fix the make errors.
-    if (NOT fst)
-        add_subdirectory(third_party/openfst)
-        include_directories(${openfst_SOURCE_DIR}/src/include)
-        if(WIN32)
-            include_directories(${openfst_SOURCE_DIR}/src/lib)
-        endif()
-    endif ()
-
+    add_subdirectory(third_party/openfst)
+    include_directories(${openfst_SOURCE_DIR}/src/include)
+    if(WIN32)
+    include_directories(${openfst_SOURCE_DIR}/src/lib)
+    endif()
 
 endif()
 

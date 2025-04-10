@@ -72,8 +72,7 @@ endif()
 if(ENABLE_FST)
     # fst depend on glog and gflags
 
-    find_package(glog)
-    if(NOT glog_FOUND)
+    if(NOT glog)
         include_directories(${PROJECT_SOURCE_DIR}/third_party/gflags)
         add_subdirectory(third_party/gflags)
         include_directories(${gflags_BINARY_DIR}/include)
@@ -81,8 +80,7 @@ if(ENABLE_FST)
     
     # the following openfst if cloned from https://github.com/kkm000/openfst.git
     # with some patch to fix the make errors.
-    find_package(fst)
-    if (NOT fst_FOUND)
+    if (NOT fst)
         add_subdirectory(third_party/openfst)
         include_directories(${openfst_SOURCE_DIR}/src/include)
         if(WIN32)
